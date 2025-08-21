@@ -1,0 +1,42 @@
+/* Download Manager Styles */
+
+.download-item {
+    background: alpha(currentColor, 0.05);
+    border-radius: 12px;
+    transition: all 200ms ease;
+}
+
+.download-item:hover {
+    background: alpha(currentColor, 0.08);
+}
+
+.download-item progressbar {
+    min-height: 6px;
+}
+
+.download-item progressbar trough {
+    background: alpha(currentColor, 0.1);
+    border-radius: 3px;
+}
+
+.download-item progressbar progress {
+    background: @accent_color;
+    border-radius: 3px;
+    transition: width 200ms ease;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.download-item {
+    animation: slideIn 300ms ease;
+}
