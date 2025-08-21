@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-
+# this is just the basic code --Aug 21th 2025
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -160,11 +159,11 @@ class SettingsDialog(Adw.PreferencesWindow):
 class DownloadManager(Adw.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app)
-        self.set_title("Download Manager")
+        self.set_title("Down")
         self.set_default_size(600, 400)
         
         # Load settings
-        self.settings_file = Path.home() / ".config" / "download-manager" / "settings.json"
+        self.settings_file = Path.home() / ".config" / "down" / "settings.json"
         self.load_settings()
         
         # Active downloads
@@ -174,7 +173,6 @@ class DownloadManager(Adw.ApplicationWindow):
         # Setup UI
         self.setup_ui()
         
-        # Monitor clipboard
         self.setup_clipboard_monitor()
     
     def load_settings(self):
@@ -198,10 +196,9 @@ class DownloadManager(Adw.ApplicationWindow):
             pass
     
     def setup_ui(self):
-        # Create main content box
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         
-        # Header bar (for AdwApplicationWindow, we create it as content, not titlebar)
+        # Header bar 
         header = Adw.HeaderBar()
         
         # Add URL button
@@ -222,7 +219,7 @@ class DownloadManager(Adw.ApplicationWindow):
         
         main_box.append(header)
         
-        # URL entry (initially hidden, shows on button click)
+        # URL entry
         self.url_revealer = Gtk.Revealer()
         url_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
         url_box.set_margin_top(12)
@@ -257,7 +254,6 @@ class DownloadManager(Adw.ApplicationWindow):
         self.empty_state.set_icon_name("folder-download-symbolic")
         self.empty_state.set_title("No Downloads")
         self.empty_state.set_description("Click the + button or paste a URL to start downloading")
-        
         # Stack to switch between empty state and downloads
         self.stack = Gtk.Stack()
         self.stack.add_named(self.empty_state, "empty")
@@ -270,13 +266,13 @@ class DownloadManager(Adw.ApplicationWindow):
         self.set_content(main_box)
     
     def setup_clipboard_monitor(self):
-        # Check clipboard every 2 seconds for URLs
+        # Check clipboard every 10 seconds for URLs it maybe be cancelled in the future update
         def check_clipboard():
             clipboard = self.get_clipboard()
             clipboard.read_text_async(None, self._on_clipboard_read)
             return True
         
-        GLib.timeout_add_seconds(2, check_clipboard)
+        GLib.timeout_add_seconds(10, check_clipboard)
         self.last_clipboard_url = ""
     
     def _on_clipboard_read(self, clipboard, result):

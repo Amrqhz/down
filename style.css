@@ -20,9 +20,9 @@
 }
 
 .download-item progressbar progress {
-    background: @accent_color;
-    border-radius: 3px;
-    transition: width 200ms ease;
+    /* background: @accent_color; */
+    border-radius : 3px;
+    transition : width 200ms ease;
 }
 
 /* Animations */
